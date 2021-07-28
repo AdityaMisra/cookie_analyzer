@@ -14,7 +14,7 @@ parser.add_argument("-d", default="2018-12-09",
 
 args = parser.parse_args()
 
-print("Printing most freq cookie(s) for the date -> ", args.d)
+print("Printing most freq cookie(s) for the date -> ", args.d, " \n")
 
 PrintUtil.print_to_new_line(
     CookieAnalyzer(args.d).get_most_active_cookie(args.f)

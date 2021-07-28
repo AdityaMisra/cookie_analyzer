@@ -1,5 +1,5 @@
 import csv
-from typing import List
+from typing import List, Iterator
 
 from dto.cookie_details import CookieDetails
 
@@ -27,7 +27,13 @@ class FileIO:
         return cookie_details
 
     @staticmethod
-    def parse_csv_file(csv_reader):
+    def parse_csv_file(csv_reader: Iterator[List[str]]) -> List[CookieDetails]:
+        """
+        Parses the csv data into CookieDetail objects
+        :param csv_reader: Iterator on csv data
+        :return: List of CookieDetail objects
+        """
+
         cookie_details = []
         line_count = 0
 

@@ -8,4 +8,3 @@ class TestPrintUtil:
 
         out, err = capsys.readouterr()
         assert out == "cookie_1\ncookie_2\n"
-

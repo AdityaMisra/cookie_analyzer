@@ -11,16 +11,21 @@ class CookieAnalyzer:
     def __init__(self, date_str: str) -> None:
         """
         Constructor of CookieAnalyzer
-        :param date_str:
+        :param date_str: date in string format
         """
-        self.requested_date = datetime.strptime(date_str, "%Y-%m-%d")
+        try:
+            self.requested_date = datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError as e:
+            print("Please enter date in the valid format - ", "YYYY-MM-DD \n")
+            raise e
+
         super().__init__()
 
-    def get_most_active_cookie(self, file_path: str):
+    def get_most_active_cookie(self, file_path: str) -> List[str]:
         """
-
-        :param file_path:
-        :return:
+        Returns a list of most active cookie for a particular day
+        :param file_path: csv file path
+        :return: List of cookie ids
         """
 
         cookie_details = FileIO.read_csv(file_path)
@@ -33,9 +38,9 @@ class CookieAnalyzer:
 
     def _aggregate_cookie(self, cookie_details: List[CookieDetails]) -> dict:
         """
-
-        :param cookie_details:
-        :return:
+        Builds a map which stores the frequency of every cookie
+        :param cookie_details: List of cookie details
+        :return: Dictionary of cookie_id & frequency
         """
 
         counter_map = defaultdict(int)
@@ -50,11 +55,12 @@ class CookieAnalyzer:
 
         return counter_map
 
-    def _get_most_freq_cookie_from_map(self, counter_map: dict) -> List[str]:
+    @staticmethod
+    def _get_most_freq_cookie_from_map(counter_map: dict) -> List[str]:
         """
-
-        :param counter_map:
-        :return:
+        Returns a list of most frequent cookie from the counter map
+        :param counter_map: Dictionary of cookie_id & frequency
+        :return: List of cookie ids
         """
 
         max_count = 0

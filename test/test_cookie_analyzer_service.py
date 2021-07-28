@@ -17,7 +17,11 @@ class TestCookieAnalyzer:
                       CookieDetails('fbcn5UAVanZf6UtG', '2018-12-08T09:30:00+00:00'),
                       CookieDetails('4sMM2LxV07bPJzwf', '2018-12-07T23:30:00+00:00'), ]
 
+    cookie_details_empty = []
+
     cookie_log_file_path = "resources/cookie_log.csv"
+
+    counter_map_empty = {}
 
     counter_map_with_single_result = {
         "AtY0laUfhglK3lC7": 2,
@@ -35,9 +39,16 @@ class TestCookieAnalyzer:
 
     cookie_multiple_result = ["AtY0laUfhglK3lC7", "SAZuXPGUrfbcn5UA"]
 
+    def test_cookie_analyzer_exception(self):
+        with pytest.raises(Exception):
+            CookieAnalyzer("2019-14-12")
+
     def test_aggregate_cookie(self):
         assert CookieAnalyzer("2018-12-09")._aggregate_cookie(
             self.cookie_details) == self.counter_map_with_single_result
+
+    def test_aggregate_cookie_empty_list(self):
+        assert CookieAnalyzer("2018-12-09")._aggregate_cookie(self.cookie_details_empty) == self.counter_map_empty
 
     def test_get_most_freq_cookie_from_map_with_single_cookie(self):
         most_freq_cookie_list = CookieAnalyzer("2018-12-09") \
@@ -52,6 +63,11 @@ class TestCookieAnalyzer:
 
         assert len(most_freq_cookie_list) == len(self.cookie_multiple_result)
         assert all([a == b for a, b in zip(most_freq_cookie_list, self.cookie_multiple_result)])
+
+    def test_get_most_freq_cookie_from_map_empty_counter_map(self):
+        most_freq_cookie_list = CookieAnalyzer("2018-12-09")._get_most_freq_cookie_from_map(self.counter_map_empty)
+
+        assert len(most_freq_cookie_list) == 0
 
     def test_get_most_active_cookie(self):
         cookie_analyzer = CookieAnalyzer("2018-12-09")
@@ -72,4 +88,3 @@ class TestCookieAnalyzer:
 
         with pytest.raises(Exception):
             cookie_analyzer.get_most_active_cookie(self.cookie_log_file_path)
-
