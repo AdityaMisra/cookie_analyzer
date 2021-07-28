@@ -9,7 +9,7 @@ class CookieAnalyzer:
 
     def __init__(self, file_path: str, date_str: str) -> None:
         """
-        Constructor of InvitationService
+        Constructor of CookieAnalyzer
         :param file_path: file path of the cookie log file
         :param date: Date for which we've to fetch the most active cookie
         """
