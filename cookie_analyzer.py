@@ -1,6 +1,6 @@
 import argparse
 
-from service.cookie_analyzer import CookieAnalyzer
+from service.cookie_analyzer_service import CookieAnalyzer
 from util.print_util import PrintUtil
 
 parser = argparse.ArgumentParser(description='This program returns a list of most active cookies for a given date')
