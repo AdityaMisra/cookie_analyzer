@@ -13,6 +13,7 @@ class CookieAnalyzer:
         Constructor of CookieAnalyzer
         :param date_str: date in string format
         """
+        
         try:
             self.requested_date = datetime.strptime(date_str, "%Y-%m-%d")
         except ValueError as e:
